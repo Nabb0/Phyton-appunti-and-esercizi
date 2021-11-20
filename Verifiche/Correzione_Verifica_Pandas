@@ -1,0 +1,2664 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Correzione verifica.ipynb",
+      "provenance": [],
+      "collapsed_sections": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "jxhmdtdIqrwt"
+      },
+      "source": [
+        "import pandas as pd\n",
+        "import matplotlib.pyplot as plt"
+      ],
+      "execution_count": 108,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "4v4EubBaqc0E"
+      },
+      "source": [
+        "# Verifica **A**"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "vKiwU7IJq1Kt",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 419
+        },
+        "outputId": "3c4384cd-0587-4c96-db77-f7f167186dd4"
+      },
+      "source": [
+        "df = pd.read_excel('https://raw.githubusercontent.com/wtitze/3E/main/Medals.xlsx')\n",
+        "df"
+      ],
+      "execution_count": 124,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Rank</th>\n",
+              "      <th>Team/NOC</th>\n",
+              "      <th>Gold</th>\n",
+              "      <th>Silver</th>\n",
+              "      <th>Bronze</th>\n",
+              "      <th>Total</th>\n",
+              "      <th>Rank by Total</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>1</td>\n",
+              "      <td>United States of America</td>\n",
+              "      <td>39</td>\n",
+              "      <td>41</td>\n",
+              "      <td>33</td>\n",
+              "      <td>113</td>\n",
+              "      <td>1</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>2</td>\n",
+              "      <td>People's Republic of China</td>\n",
+              "      <td>38</td>\n",
+              "      <td>32</td>\n",
+              "      <td>18</td>\n",
+              "      <td>88</td>\n",
+              "      <td>2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>3</td>\n",
+              "      <td>Japan</td>\n",
+              "      <td>27</td>\n",
+              "      <td>14</td>\n",
+              "      <td>17</td>\n",
+              "      <td>58</td>\n",
+              "      <td>5</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>4</td>\n",
+              "      <td>Great Britain</td>\n",
+              "      <td>22</td>\n",
+              "      <td>21</td>\n",
+              "      <td>22</td>\n",
+              "      <td>65</td>\n",
+              "      <td>4</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>5</td>\n",
+              "      <td>ROC</td>\n",
+              "      <td>20</td>\n",
+              "      <td>28</td>\n",
+              "      <td>23</td>\n",
+              "      <td>71</td>\n",
+              "      <td>3</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>88</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Ghana</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>89</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Grenada</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>90</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Kuwait</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>91</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Republic of Moldova</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>92</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Syrian Arab Republic</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>93 rows × 7 columns</p>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "    Rank                    Team/NOC  Gold  ...  Bronze  Total  Rank by Total\n",
+              "0      1    United States of America    39  ...      33    113              1\n",
+              "1      2  People's Republic of China    38  ...      18     88              2\n",
+              "2      3                       Japan    27  ...      17     58              5\n",
+              "3      4               Great Britain    22  ...      22     65              4\n",
+              "4      5                         ROC    20  ...      23     71              3\n",
+              "..   ...                         ...   ...  ...     ...    ...            ...\n",
+              "88    86                       Ghana     0  ...       1      1             77\n",
+              "89    86                     Grenada     0  ...       1      1             77\n",
+              "90    86                      Kuwait     0  ...       1      1             77\n",
+              "91    86         Republic of Moldova     0  ...       1      1             77\n",
+              "92    86        Syrian Arab Republic     0  ...       1      1             77\n",
+              "\n",
+              "[93 rows x 7 columns]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 124
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "scWX9pUgqcuh"
+      },
+      "source": [
+        "1\\. Visualizzare il numero di medaglie d’oro vinte dall’Italia\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "TA2gAI-qqWH6",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "a88f98b2-fd39-4daa-afc6-58cf6191a9fa"
+      },
+      "source": [
+        "df[df['Team/NOC'] == 'Italy']['Gold']"
+      ],
+      "execution_count": 110,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "9    10\n",
+              "Name: Gold, dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 110
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "ZfCNRZCArp7N"
+      },
+      "source": [
+        "2\\. Visualizzare il numero di medaglie d’oro delle nazioni che cominciano con la lettera F\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "8vsj34Kfrp1K",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "6055f9c8-92ee-4063-a302-cfbb6a8c2e9e"
+      },
+      "source": [
+        "df[df['Team/NOC'].str.startswith('F') == True]['Gold']"
+      ],
+      "execution_count": 111,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "7     10\n",
+              "59     1\n",
+              "84     0\n",
+              "Name: Gold, dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 111
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "ADxqx8TusU9V"
+      },
+      "source": [
+        "3\\. Aggiungere una colonna contenente il numero totale di medaglie di ogni nazione. Chiamare la colonna “Total”\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "te-own6hsU2p",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 419
+        },
+        "outputId": "5e252494-aa6e-4ae8-8ef7-98534febcaee"
+      },
+      "source": [
+        "df['Total'] = df['Gold'] + df['Silver'] + df['Bronze']\n",
+        "df"
+      ],
+      "execution_count": 112,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Rank</th>\n",
+              "      <th>Team/NOC</th>\n",
+              "      <th>Gold</th>\n",
+              "      <th>Silver</th>\n",
+              "      <th>Bronze</th>\n",
+              "      <th>Total</th>\n",
+              "      <th>Rank by Total</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>1</td>\n",
+              "      <td>United States of America</td>\n",
+              "      <td>39</td>\n",
+              "      <td>41</td>\n",
+              "      <td>33</td>\n",
+              "      <td>113</td>\n",
+              "      <td>1</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>2</td>\n",
+              "      <td>People's Republic of China</td>\n",
+              "      <td>38</td>\n",
+              "      <td>32</td>\n",
+              "      <td>18</td>\n",
+              "      <td>88</td>\n",
+              "      <td>2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>3</td>\n",
+              "      <td>Japan</td>\n",
+              "      <td>27</td>\n",
+              "      <td>14</td>\n",
+              "      <td>17</td>\n",
+              "      <td>58</td>\n",
+              "      <td>5</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>4</td>\n",
+              "      <td>Great Britain</td>\n",
+              "      <td>22</td>\n",
+              "      <td>21</td>\n",
+              "      <td>22</td>\n",
+              "      <td>65</td>\n",
+              "      <td>4</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>5</td>\n",
+              "      <td>ROC</td>\n",
+              "      <td>20</td>\n",
+              "      <td>28</td>\n",
+              "      <td>23</td>\n",
+              "      <td>71</td>\n",
+              "      <td>3</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>88</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Ghana</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>89</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Grenada</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>90</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Kuwait</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>91</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Republic of Moldova</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>92</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Syrian Arab Republic</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>93 rows × 7 columns</p>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "    Rank                    Team/NOC  Gold  ...  Bronze  Total  Rank by Total\n",
+              "0      1    United States of America    39  ...      33    113              1\n",
+              "1      2  People's Republic of China    38  ...      18     88              2\n",
+              "2      3                       Japan    27  ...      17     58              5\n",
+              "3      4               Great Britain    22  ...      22     65              4\n",
+              "4      5                         ROC    20  ...      23     71              3\n",
+              "..   ...                         ...   ...  ...     ...    ...            ...\n",
+              "88    86                       Ghana     0  ...       1      1             77\n",
+              "89    86                     Grenada     0  ...       1      1             77\n",
+              "90    86                      Kuwait     0  ...       1      1             77\n",
+              "91    86         Republic of Moldova     0  ...       1      1             77\n",
+              "92    86        Syrian Arab Republic     0  ...       1      1             77\n",
+              "\n",
+              "[93 rows x 7 columns]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 112
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "LHIYqxiksrRp"
+      },
+      "source": [
+        "4\\. Visualizzare la nazione che ha vinto più medaglie (in totale)\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "9CLW5I-Fsq6w",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        },
+        "outputId": "51d00b41-e548-4cf4-bbec-c24d5d05df5c"
+      },
+      "source": [
+        "df.sort_values('Total', ascending=False)['Team/NOC'][0]"
+      ],
+      "execution_count": 113,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "string"
+            },
+            "text/plain": [
+              "'United States of America'"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 113
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "e_wadpvxs_P5"
+      },
+      "source": [
+        "5\\. Visualizzare il numero totale di medaglie vinte complessivamente da tutte le nazioni\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "hntm6VTss_Ir",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "539cf579-94dc-4d05-9a3a-d744c301a4c6"
+      },
+      "source": [
+        "df['Total'].sum()"
+      ],
+      "execution_count": 114,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "1080"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 114
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "aEgkBs1bv5CD"
+      },
+      "source": [
+        "6\\. Aggiungere una colonna contenente la percentuale di medaglie vinte da ogni nazione. Chiamare la colonna “Percentuale”\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "L5zBiLRTv493",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 419
+        },
+        "outputId": "5c5a5511-8d13-40b7-a2d5-eac1bb93e0ec"
+      },
+      "source": [
+        "df['Percentuale'] = round(100 * df['Total']/df['Total'].sum(), 2)\n",
+        "df"
+      ],
+      "execution_count": 125,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Rank</th>\n",
+              "      <th>Team/NOC</th>\n",
+              "      <th>Gold</th>\n",
+              "      <th>Silver</th>\n",
+              "      <th>Bronze</th>\n",
+              "      <th>Total</th>\n",
+              "      <th>Rank by Total</th>\n",
+              "      <th>Percentuale</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>1</td>\n",
+              "      <td>United States of America</td>\n",
+              "      <td>39</td>\n",
+              "      <td>41</td>\n",
+              "      <td>33</td>\n",
+              "      <td>113</td>\n",
+              "      <td>1</td>\n",
+              "      <td>10.46</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>2</td>\n",
+              "      <td>People's Republic of China</td>\n",
+              "      <td>38</td>\n",
+              "      <td>32</td>\n",
+              "      <td>18</td>\n",
+              "      <td>88</td>\n",
+              "      <td>2</td>\n",
+              "      <td>8.15</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>3</td>\n",
+              "      <td>Japan</td>\n",
+              "      <td>27</td>\n",
+              "      <td>14</td>\n",
+              "      <td>17</td>\n",
+              "      <td>58</td>\n",
+              "      <td>5</td>\n",
+              "      <td>5.37</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>4</td>\n",
+              "      <td>Great Britain</td>\n",
+              "      <td>22</td>\n",
+              "      <td>21</td>\n",
+              "      <td>22</td>\n",
+              "      <td>65</td>\n",
+              "      <td>4</td>\n",
+              "      <td>6.02</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>5</td>\n",
+              "      <td>ROC</td>\n",
+              "      <td>20</td>\n",
+              "      <td>28</td>\n",
+              "      <td>23</td>\n",
+              "      <td>71</td>\n",
+              "      <td>3</td>\n",
+              "      <td>6.57</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>88</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Ghana</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "      <td>0.09</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>89</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Grenada</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "      <td>0.09</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>90</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Kuwait</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "      <td>0.09</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>91</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Republic of Moldova</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "      <td>0.09</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>92</th>\n",
+              "      <td>86</td>\n",
+              "      <td>Syrian Arab Republic</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>1</td>\n",
+              "      <td>77</td>\n",
+              "      <td>0.09</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>93 rows × 8 columns</p>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "    Rank                    Team/NOC  Gold  ...  Total  Rank by Total  Percentuale\n",
+              "0      1    United States of America    39  ...    113              1        10.46\n",
+              "1      2  People's Republic of China    38  ...     88              2         8.15\n",
+              "2      3                       Japan    27  ...     58              5         5.37\n",
+              "3      4               Great Britain    22  ...     65              4         6.02\n",
+              "4      5                         ROC    20  ...     71              3         6.57\n",
+              "..   ...                         ...   ...  ...    ...            ...          ...\n",
+              "88    86                       Ghana     0  ...      1             77         0.09\n",
+              "89    86                     Grenada     0  ...      1             77         0.09\n",
+              "90    86                      Kuwait     0  ...      1             77         0.09\n",
+              "91    86         Republic of Moldova     0  ...      1             77         0.09\n",
+              "92    86        Syrian Arab Republic     0  ...      1             77         0.09\n",
+              "\n",
+              "[93 rows x 8 columns]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 125
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "FrF4DzweEzlr"
+      },
+      "source": [
+        "\n",
+        "\n",
+        "---\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "x4EPMqRowogQ"
+      },
+      "source": [
+        "<hr>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "u158SFomwtfA",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 419
+        },
+        "outputId": "c9ecc216-b777-45c9-9361-5779b084f912"
+      },
+      "source": [
+        "df = pd.read_excel('https://raw.githubusercontent.com/wtitze/3E/main/Teams.xlsx')\n",
+        "df"
+      ],
+      "execution_count": 116,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Name</th>\n",
+              "      <th>Discipline</th>\n",
+              "      <th>NOC</th>\n",
+              "      <th>Event</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>Belgium</td>\n",
+              "      <td>3x3 Basketball</td>\n",
+              "      <td>Belgium</td>\n",
+              "      <td>Men</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>China</td>\n",
+              "      <td>3x3 Basketball</td>\n",
+              "      <td>People's Republic of China</td>\n",
+              "      <td>Men</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>China</td>\n",
+              "      <td>3x3 Basketball</td>\n",
+              "      <td>People's Republic of China</td>\n",
+              "      <td>Women</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>France</td>\n",
+              "      <td>3x3 Basketball</td>\n",
+              "      <td>France</td>\n",
+              "      <td>Women</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>Italy</td>\n",
+              "      <td>3x3 Basketball</td>\n",
+              "      <td>Italy</td>\n",
+              "      <td>Women</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>738</th>\n",
+              "      <td>South Africa</td>\n",
+              "      <td>Water Polo</td>\n",
+              "      <td>South Africa</td>\n",
+              "      <td>Women</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>739</th>\n",
+              "      <td>Spain</td>\n",
+              "      <td>Water Polo</td>\n",
+              "      <td>Spain</td>\n",
+              "      <td>Men</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>740</th>\n",
+              "      <td>Spain</td>\n",
+              "      <td>Water Polo</td>\n",
+              "      <td>Spain</td>\n",
+              "      <td>Women</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>741</th>\n",
+              "      <td>United States</td>\n",
+              "      <td>Water Polo</td>\n",
+              "      <td>United States of America</td>\n",
+              "      <td>Men</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>742</th>\n",
+              "      <td>United States</td>\n",
+              "      <td>Water Polo</td>\n",
+              "      <td>United States of America</td>\n",
+              "      <td>Women</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>743 rows × 4 columns</p>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "              Name      Discipline                         NOC  Event\n",
+              "0          Belgium  3x3 Basketball                     Belgium    Men\n",
+              "1            China  3x3 Basketball  People's Republic of China    Men\n",
+              "2            China  3x3 Basketball  People's Republic of China  Women\n",
+              "3           France  3x3 Basketball                      France  Women\n",
+              "4            Italy  3x3 Basketball                       Italy  Women\n",
+              "..             ...             ...                         ...    ...\n",
+              "738   South Africa      Water Polo                South Africa  Women\n",
+              "739          Spain      Water Polo                       Spain    Men\n",
+              "740          Spain      Water Polo                       Spain  Women\n",
+              "741  United States      Water Polo    United States of America    Men\n",
+              "742  United States      Water Polo    United States of America  Women\n",
+              "\n",
+              "[743 rows x 4 columns]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 116
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "goim4IwIw0c7"
+      },
+      "source": [
+        "1\\. Visualizzare il numero di squadre per ogni sesso"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "XtTcrA5cw0TW",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "529e30a2-590d-4826-fd18-cae4aa21809e"
+      },
+      "source": [
+        "df['Event'].value_counts()"
+      ],
+      "execution_count": 117,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "Men                                 120\n",
+              "Women                               114\n",
+              "Women's Team                         40\n",
+              "Men's Team                           40\n",
+              "Mixed Team                           29\n",
+              "Duet                                 22\n",
+              "Mixed Relay                          18\n",
+              "Women's 4 x 200m Freestyle Relay     17\n",
+              "Mixed Doubles                        16\n",
+              "Women's Madison                      16\n",
+              "Men's 4 x 100m Medley Relay          16\n",
+              "Women's 4 x 100m Relay               16\n",
+              "Mixed 4 x 100m Medley Relay          16\n",
+              "Men's 4 x 100m Relay                 16\n",
+              "Men's 4 x 100m Freestyle Relay       16\n",
+              "Women's 4 x 400m Relay               16\n",
+              "Women's 4 x 100m Freestyle Relay     16\n",
+              "Men's 4 x 200m Freestyle Relay       16\n",
+              "Men's Madison                        16\n",
+              "Men's 4 x 400m Relay                 16\n",
+              "Women's 4 x 100m Medley Relay        16\n",
+              "4 x 400m Relay Mixed                 15\n",
+              "Group All-Around                     14\n",
+              "Team                                 10\n",
+              "Men's Foil Team                       9\n",
+              "Women's Sabre Team                    9\n",
+              "Men's Sabre Team                      9\n",
+              "Men's Épée Team                       9\n",
+              "Women's Team Sprint                   8\n",
+              "Women's Épée Team                     8\n",
+              "Women's Team Pursuit                  8\n",
+              "Men's Team Sprint                     8\n",
+              "Men's Team Pursuit                    8\n",
+              "Women's Foil Team                     8\n",
+              "Softball                              6\n",
+              "Baseball                              6\n",
+              "Name: Event, dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 117
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "5xqknC_kzf27"
+      },
+      "source": [
+        "2\\. Visualizzare il numero di discipline a cui ha partecipato ogni nazione. Ordinare in ordine decrescente a partire dalla nazione che ha presentato più squadre. Contare insieme squadre maschili e femminili\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "_FRTLgSXzfzC",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 419
+        },
+        "outputId": "2c8d9506-3907-42d0-8698-80ee355cbf7d"
+      },
+      "source": [
+        "data = df.groupby('NOC', as_index=False).agg({'Event': 'count'}).sort_values('Event', ascending=False)\n",
+        "data"
+      ],
+      "execution_count": 118,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>NOC</th>\n",
+              "      <th>Event</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>42</th>\n",
+              "      <td>Japan</td>\n",
+              "      <td>48</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>79</th>\n",
+              "      <td>United States of America</td>\n",
+              "      <td>47</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>40</th>\n",
+              "      <td>Italy</td>\n",
+              "      <td>37</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>28</th>\n",
+              "      <td>Germany</td>\n",
+              "      <td>36</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>Australia</td>\n",
+              "      <td>35</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>46</th>\n",
+              "      <td>Liechtenstein</td>\n",
+              "      <td>1</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>48</th>\n",
+              "      <td>Malaysia</td>\n",
+              "      <td>1</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>52</th>\n",
+              "      <td>Morocco</td>\n",
+              "      <td>1</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>60</th>\n",
+              "      <td>Puerto Rico</td>\n",
+              "      <td>1</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>83</th>\n",
+              "      <td>Zambia</td>\n",
+              "      <td>1</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>84 rows × 2 columns</p>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "                         NOC  Event\n",
+              "42                     Japan     48\n",
+              "79  United States of America     47\n",
+              "40                     Italy     37\n",
+              "28                   Germany     36\n",
+              "2                  Australia     35\n",
+              "..                       ...    ...\n",
+              "46             Liechtenstein      1\n",
+              "48                  Malaysia      1\n",
+              "52                   Morocco      1\n",
+              "60               Puerto Rico      1\n",
+              "83                    Zambia      1\n",
+              "\n",
+              "[84 rows x 2 columns]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 118
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "w-5oVnfYzn5z"
+      },
+      "source": [
+        "3\\. Visualizzare il numero di nazioni che hanno partecipato alle varie discipline. Ordinare in ordine decrescente in base alla disciplina che ha avuto più squadre partecipanti\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "5PCEjPEqzn0d",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 669
+        },
+        "outputId": "ba0ff450-0789-4e1f-90ca-96016e3b7f88"
+      },
+      "source": [
+        "data = df.groupby('Discipline', as_index=False).agg({'NOC': 'count'}).sort_values('NOC', ascending=False)\n",
+        "data"
+      ],
+      "execution_count": 119,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Discipline</th>\n",
+              "      <th>NOC</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>15</th>\n",
+              "      <td>Swimming</td>\n",
+              "      <td>113</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>Athletics</td>\n",
+              "      <td>79</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>8</th>\n",
+              "      <td>Cycling Track</td>\n",
+              "      <td>64</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>Archery</td>\n",
+              "      <td>53</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>9</th>\n",
+              "      <td>Fencing</td>\n",
+              "      <td>52</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>7</th>\n",
+              "      <td>Beach Volleyball</td>\n",
+              "      <td>48</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>16</th>\n",
+              "      <td>Table Tennis</td>\n",
+              "      <td>48</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>Artistic Swimming</td>\n",
+              "      <td>32</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>10</th>\n",
+              "      <td>Football</td>\n",
+              "      <td>28</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>Artistic Gymnastics</td>\n",
+              "      <td>24</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>18</th>\n",
+              "      <td>Volleyball</td>\n",
+              "      <td>24</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>6</th>\n",
+              "      <td>Basketball</td>\n",
+              "      <td>24</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>11</th>\n",
+              "      <td>Handball</td>\n",
+              "      <td>24</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>12</th>\n",
+              "      <td>Hockey</td>\n",
+              "      <td>24</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14</th>\n",
+              "      <td>Rugby Sevens</td>\n",
+              "      <td>24</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>19</th>\n",
+              "      <td>Water Polo</td>\n",
+              "      <td>22</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>17</th>\n",
+              "      <td>Triathlon</td>\n",
+              "      <td>18</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>3x3 Basketball</td>\n",
+              "      <td>16</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>13</th>\n",
+              "      <td>Rhythmic Gymnastics</td>\n",
+              "      <td>14</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>5</th>\n",
+              "      <td>Baseball/Softball</td>\n",
+              "      <td>12</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "             Discipline  NOC\n",
+              "15             Swimming  113\n",
+              "4             Athletics   79\n",
+              "8         Cycling Track   64\n",
+              "1               Archery   53\n",
+              "9               Fencing   52\n",
+              "7      Beach Volleyball   48\n",
+              "16         Table Tennis   48\n",
+              "3     Artistic Swimming   32\n",
+              "10             Football   28\n",
+              "2   Artistic Gymnastics   24\n",
+              "18           Volleyball   24\n",
+              "6            Basketball   24\n",
+              "11             Handball   24\n",
+              "12               Hockey   24\n",
+              "14         Rugby Sevens   24\n",
+              "19           Water Polo   22\n",
+              "17            Triathlon   18\n",
+              "0        3x3 Basketball   16\n",
+              "13  Rhythmic Gymnastics   14\n",
+              "5     Baseball/Softball   12"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 119
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "f9EQIcfvzsV8"
+      },
+      "source": [
+        "4\\. Visualizzare il nome della nazione che ha portato più squadre\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "-mbG4zQyzsRF",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        },
+        "outputId": "3369e7f6-a683-4e84-ddde-ffb624c112a0"
+      },
+      "source": [
+        "df.groupby('NOC', as_index=False).agg({'Event': 'count'}).sort_values('Event', ascending=False).values[0][0]"
+      ],
+      "execution_count": 120,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "string"
+            },
+            "text/plain": [
+              "'Japan'"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 120
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "tGFCZ3PizvpC"
+      },
+      "source": [
+        "5\\. Eliminare la colonna “Event”\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "uHUf6Y_6zvlI"
+      },
+      "source": [
+        "df = df.drop(columns=['Event'])"
+      ],
+      "execution_count": 121,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "joys7H7GzyZN"
+      },
+      "source": [
+        "6\\. Rinominare la colonna NOC in “Name”"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Rn29nEOzzyU7",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 419
+        },
+        "outputId": "f4851e97-8e16-453a-ba29-f4caa3697562"
+      },
+      "source": [
+        "df.rename(columns={\"NOC\": \"Name\"})"
+      ],
+      "execution_count": 122,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Name</th>\n",
+              "      <th>Discipline</th>\n",
+              "      <th>Name</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>Belgium</td>\n",
+              "      <td>3x3 Basketball</td>\n",
+              "      <td>Belgium</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>China</td>\n",
+              "      <td>3x3 Basketball</td>\n",
+              "      <td>People's Republic of China</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>China</td>\n",
+              "      <td>3x3 Basketball</td>\n",
+              "      <td>People's Republic of China</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>France</td>\n",
+              "      <td>3x3 Basketball</td>\n",
+              "      <td>France</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>Italy</td>\n",
+              "      <td>3x3 Basketball</td>\n",
+              "      <td>Italy</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>738</th>\n",
+              "      <td>South Africa</td>\n",
+              "      <td>Water Polo</td>\n",
+              "      <td>South Africa</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>739</th>\n",
+              "      <td>Spain</td>\n",
+              "      <td>Water Polo</td>\n",
+              "      <td>Spain</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>740</th>\n",
+              "      <td>Spain</td>\n",
+              "      <td>Water Polo</td>\n",
+              "      <td>Spain</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>741</th>\n",
+              "      <td>United States</td>\n",
+              "      <td>Water Polo</td>\n",
+              "      <td>United States of America</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>742</th>\n",
+              "      <td>United States</td>\n",
+              "      <td>Water Polo</td>\n",
+              "      <td>United States of America</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>743 rows × 3 columns</p>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "              Name      Discipline                        Name\n",
+              "0          Belgium  3x3 Basketball                     Belgium\n",
+              "1            China  3x3 Basketball  People's Republic of China\n",
+              "2            China  3x3 Basketball  People's Republic of China\n",
+              "3           France  3x3 Basketball                      France\n",
+              "4            Italy  3x3 Basketball                       Italy\n",
+              "..             ...             ...                         ...\n",
+              "738   South Africa      Water Polo                South Africa\n",
+              "739          Spain      Water Polo                       Spain\n",
+              "740          Spain      Water Polo                       Spain\n",
+              "741  United States      Water Polo    United States of America\n",
+              "742  United States      Water Polo    United States of America\n",
+              "\n",
+              "[743 rows x 3 columns]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 122
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "NdbmOVa3qeue"
+      },
+      "source": [
+        "# Verifica **B**"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "tG1v3U2Z0JqN",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 1000
+        },
+        "outputId": "61d0be08-9602-47fe-d4d4-c4fc0eb39f42"
+      },
+      "source": [
+        "df = pd.read_excel('https://raw.githubusercontent.com/wtitze/3E/main/EntriesGender.xlsx')\n",
+        "df"
+      ],
+      "execution_count": 136,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Discipline</th>\n",
+              "      <th>Female</th>\n",
+              "      <th>Male</th>\n",
+              "      <th>Total</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>3x3 Basketball</td>\n",
+              "      <td>32</td>\n",
+              "      <td>32</td>\n",
+              "      <td>64</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>Archery</td>\n",
+              "      <td>64</td>\n",
+              "      <td>64</td>\n",
+              "      <td>128</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>Artistic Gymnastics</td>\n",
+              "      <td>98</td>\n",
+              "      <td>98</td>\n",
+              "      <td>196</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>Artistic Swimming</td>\n",
+              "      <td>105</td>\n",
+              "      <td>0</td>\n",
+              "      <td>105</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>Athletics</td>\n",
+              "      <td>969</td>\n",
+              "      <td>1072</td>\n",
+              "      <td>2041</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>5</th>\n",
+              "      <td>Badminton</td>\n",
+              "      <td>86</td>\n",
+              "      <td>87</td>\n",
+              "      <td>173</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>6</th>\n",
+              "      <td>Baseball/Softball</td>\n",
+              "      <td>90</td>\n",
+              "      <td>144</td>\n",
+              "      <td>234</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>7</th>\n",
+              "      <td>Basketball</td>\n",
+              "      <td>144</td>\n",
+              "      <td>144</td>\n",
+              "      <td>288</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>8</th>\n",
+              "      <td>Beach Volleyball</td>\n",
+              "      <td>48</td>\n",
+              "      <td>48</td>\n",
+              "      <td>96</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>9</th>\n",
+              "      <td>Boxing</td>\n",
+              "      <td>102</td>\n",
+              "      <td>187</td>\n",
+              "      <td>289</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>10</th>\n",
+              "      <td>Canoe Slalom</td>\n",
+              "      <td>41</td>\n",
+              "      <td>41</td>\n",
+              "      <td>82</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>11</th>\n",
+              "      <td>Canoe Sprint</td>\n",
+              "      <td>123</td>\n",
+              "      <td>126</td>\n",
+              "      <td>249</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>12</th>\n",
+              "      <td>Cycling BMX Freestyle</td>\n",
+              "      <td>10</td>\n",
+              "      <td>9</td>\n",
+              "      <td>19</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>13</th>\n",
+              "      <td>Cycling BMX Racing</td>\n",
+              "      <td>24</td>\n",
+              "      <td>24</td>\n",
+              "      <td>48</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14</th>\n",
+              "      <td>Cycling Mountain Bike</td>\n",
+              "      <td>38</td>\n",
+              "      <td>38</td>\n",
+              "      <td>76</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>15</th>\n",
+              "      <td>Cycling Road</td>\n",
+              "      <td>70</td>\n",
+              "      <td>131</td>\n",
+              "      <td>201</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>16</th>\n",
+              "      <td>Cycling Track</td>\n",
+              "      <td>90</td>\n",
+              "      <td>99</td>\n",
+              "      <td>189</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>17</th>\n",
+              "      <td>Diving</td>\n",
+              "      <td>72</td>\n",
+              "      <td>71</td>\n",
+              "      <td>143</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>18</th>\n",
+              "      <td>Equestrian</td>\n",
+              "      <td>73</td>\n",
+              "      <td>125</td>\n",
+              "      <td>198</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>19</th>\n",
+              "      <td>Fencing</td>\n",
+              "      <td>107</td>\n",
+              "      <td>108</td>\n",
+              "      <td>215</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>20</th>\n",
+              "      <td>Football</td>\n",
+              "      <td>264</td>\n",
+              "      <td>344</td>\n",
+              "      <td>608</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>21</th>\n",
+              "      <td>Golf</td>\n",
+              "      <td>60</td>\n",
+              "      <td>60</td>\n",
+              "      <td>120</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>22</th>\n",
+              "      <td>Handball</td>\n",
+              "      <td>168</td>\n",
+              "      <td>168</td>\n",
+              "      <td>336</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>23</th>\n",
+              "      <td>Hockey</td>\n",
+              "      <td>192</td>\n",
+              "      <td>192</td>\n",
+              "      <td>384</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>24</th>\n",
+              "      <td>Judo</td>\n",
+              "      <td>192</td>\n",
+              "      <td>201</td>\n",
+              "      <td>393</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>25</th>\n",
+              "      <td>Karate</td>\n",
+              "      <td>40</td>\n",
+              "      <td>42</td>\n",
+              "      <td>82</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>26</th>\n",
+              "      <td>Marathon Swimming</td>\n",
+              "      <td>25</td>\n",
+              "      <td>25</td>\n",
+              "      <td>50</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>27</th>\n",
+              "      <td>Modern Pentathlon</td>\n",
+              "      <td>36</td>\n",
+              "      <td>36</td>\n",
+              "      <td>72</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>28</th>\n",
+              "      <td>Rhythmic Gymnastics</td>\n",
+              "      <td>96</td>\n",
+              "      <td>0</td>\n",
+              "      <td>96</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>29</th>\n",
+              "      <td>Rowing</td>\n",
+              "      <td>257</td>\n",
+              "      <td>265</td>\n",
+              "      <td>522</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>30</th>\n",
+              "      <td>Rugby Sevens</td>\n",
+              "      <td>146</td>\n",
+              "      <td>151</td>\n",
+              "      <td>297</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>31</th>\n",
+              "      <td>Sailing</td>\n",
+              "      <td>175</td>\n",
+              "      <td>175</td>\n",
+              "      <td>350</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>32</th>\n",
+              "      <td>Shooting</td>\n",
+              "      <td>178</td>\n",
+              "      <td>178</td>\n",
+              "      <td>356</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>33</th>\n",
+              "      <td>Skateboarding</td>\n",
+              "      <td>40</td>\n",
+              "      <td>40</td>\n",
+              "      <td>80</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>34</th>\n",
+              "      <td>Sport Climbing</td>\n",
+              "      <td>20</td>\n",
+              "      <td>20</td>\n",
+              "      <td>40</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>35</th>\n",
+              "      <td>Surfing</td>\n",
+              "      <td>20</td>\n",
+              "      <td>20</td>\n",
+              "      <td>40</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>36</th>\n",
+              "      <td>Swimming</td>\n",
+              "      <td>361</td>\n",
+              "      <td>418</td>\n",
+              "      <td>779</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>37</th>\n",
+              "      <td>Table Tennis</td>\n",
+              "      <td>86</td>\n",
+              "      <td>86</td>\n",
+              "      <td>172</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>38</th>\n",
+              "      <td>Taekwondo</td>\n",
+              "      <td>65</td>\n",
+              "      <td>65</td>\n",
+              "      <td>130</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>39</th>\n",
+              "      <td>Tennis</td>\n",
+              "      <td>94</td>\n",
+              "      <td>97</td>\n",
+              "      <td>191</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>40</th>\n",
+              "      <td>Trampoline Gymnastics</td>\n",
+              "      <td>16</td>\n",
+              "      <td>16</td>\n",
+              "      <td>32</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>41</th>\n",
+              "      <td>Triathlon</td>\n",
+              "      <td>55</td>\n",
+              "      <td>55</td>\n",
+              "      <td>110</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>42</th>\n",
+              "      <td>Volleyball</td>\n",
+              "      <td>144</td>\n",
+              "      <td>144</td>\n",
+              "      <td>288</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>43</th>\n",
+              "      <td>Water Polo</td>\n",
+              "      <td>122</td>\n",
+              "      <td>146</td>\n",
+              "      <td>268</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>44</th>\n",
+              "      <td>Weightlifting</td>\n",
+              "      <td>98</td>\n",
+              "      <td>99</td>\n",
+              "      <td>197</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>45</th>\n",
+              "      <td>Wrestling</td>\n",
+              "      <td>96</td>\n",
+              "      <td>193</td>\n",
+              "      <td>289</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "               Discipline  Female  Male  Total\n",
+              "0          3x3 Basketball      32    32     64\n",
+              "1                 Archery      64    64    128\n",
+              "2     Artistic Gymnastics      98    98    196\n",
+              "3       Artistic Swimming     105     0    105\n",
+              "4               Athletics     969  1072   2041\n",
+              "5               Badminton      86    87    173\n",
+              "6       Baseball/Softball      90   144    234\n",
+              "7              Basketball     144   144    288\n",
+              "8        Beach Volleyball      48    48     96\n",
+              "9                  Boxing     102   187    289\n",
+              "10           Canoe Slalom      41    41     82\n",
+              "11           Canoe Sprint     123   126    249\n",
+              "12  Cycling BMX Freestyle      10     9     19\n",
+              "13     Cycling BMX Racing      24    24     48\n",
+              "14  Cycling Mountain Bike      38    38     76\n",
+              "15           Cycling Road      70   131    201\n",
+              "16          Cycling Track      90    99    189\n",
+              "17                 Diving      72    71    143\n",
+              "18             Equestrian      73   125    198\n",
+              "19                Fencing     107   108    215\n",
+              "20               Football     264   344    608\n",
+              "21                   Golf      60    60    120\n",
+              "22               Handball     168   168    336\n",
+              "23                 Hockey     192   192    384\n",
+              "24                   Judo     192   201    393\n",
+              "25                 Karate      40    42     82\n",
+              "26      Marathon Swimming      25    25     50\n",
+              "27      Modern Pentathlon      36    36     72\n",
+              "28    Rhythmic Gymnastics      96     0     96\n",
+              "29                 Rowing     257   265    522\n",
+              "30           Rugby Sevens     146   151    297\n",
+              "31                Sailing     175   175    350\n",
+              "32               Shooting     178   178    356\n",
+              "33          Skateboarding      40    40     80\n",
+              "34         Sport Climbing      20    20     40\n",
+              "35                Surfing      20    20     40\n",
+              "36               Swimming     361   418    779\n",
+              "37           Table Tennis      86    86    172\n",
+              "38              Taekwondo      65    65    130\n",
+              "39                 Tennis      94    97    191\n",
+              "40  Trampoline Gymnastics      16    16     32\n",
+              "41              Triathlon      55    55    110\n",
+              "42             Volleyball     144   144    288\n",
+              "43             Water Polo     122   146    268\n",
+              "44          Weightlifting      98    99    197\n",
+              "45              Wrestling      96   193    289"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 136
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "YWhLXMqQqftq"
+      },
+      "source": [
+        "1\\. Visualizzare il numero di atleti maschi del nuoto"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "5M_YBaDCqfb8",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "1c0d1d4d-5924-4cba-f1ef-b62781ce8bd0"
+      },
+      "source": [
+        "df[df['Discipline'] == 'Swimming']['Male']"
+      ],
+      "execution_count": 137,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "36    418\n",
+              "Name: Male, dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 137
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "i8fEZB0L26Vm"
+      },
+      "source": [
+        "2\\. Visualizzare le discipline con meno di 100 atleti donne\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "EPmV5EVN26SJ",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "e2afcc57-19fa-499e-99bc-5dd7c3dbb510"
+      },
+      "source": [
+        "df[df['Female'] <= 100]['Discipline']"
+      ],
+      "execution_count": 138,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0            3x3 Basketball\n",
+              "1                   Archery\n",
+              "2       Artistic Gymnastics\n",
+              "5                 Badminton\n",
+              "6         Baseball/Softball\n",
+              "8          Beach Volleyball\n",
+              "10             Canoe Slalom\n",
+              "12    Cycling BMX Freestyle\n",
+              "13       Cycling BMX Racing\n",
+              "14    Cycling Mountain Bike\n",
+              "15             Cycling Road\n",
+              "16            Cycling Track\n",
+              "17                   Diving\n",
+              "18               Equestrian\n",
+              "21                     Golf\n",
+              "25                   Karate\n",
+              "26        Marathon Swimming\n",
+              "27        Modern Pentathlon\n",
+              "28      Rhythmic Gymnastics\n",
+              "33            Skateboarding\n",
+              "34           Sport Climbing\n",
+              "35                  Surfing\n",
+              "37             Table Tennis\n",
+              "38                Taekwondo\n",
+              "39                   Tennis\n",
+              "40    Trampoline Gymnastics\n",
+              "41                Triathlon\n",
+              "44            Weightlifting\n",
+              "45                Wrestling\n",
+              "Name: Discipline, dtype: object"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 138
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "ZLDDsoGtIblm"
+      },
+      "source": [
+        "3\\. Aggiungere una colonna contenente il numero totale di atleti di ogni disciplina. Chiamare la colonna “Total”\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "XPavOMSmIbc2"
+      },
+      "source": [
+        "df['Total'] = df['Female'] + df['Male']"
+      ],
+      "execution_count": 139,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "sHtd88FUJTGY"
+      },
+      "source": [
+        "4\\. Visualizzare la nazione che ha più atleti (in totale)\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Tl98c32oJTCM"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 139,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "Bs-byjLDJ1wU"
+      },
+      "source": [
+        "5\\. Visualizzare il numero totale di atleti\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "v__5720iJ1rl",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "c1f8f650-46e8-45aa-dbbb-00a7cf5fa0a4"
+      },
+      "source": [
+        "df['Total'].sum()"
+      ],
+      "execution_count": 140,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "11316"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 140
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "VX_dEWURJ7Pf"
+      },
+      "source": [
+        "6\\. Aggiungere una colonna contenente la percentuale di atleti di ogni disciplina rispetto al totale. Chiamare la colonna “Percentuale”"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "yWS3BesrJ7Kf"
+      },
+      "source": [
+        "df['Percentuale'] = round(100 * df['Total']/df['Total'].sum(), 2)"
+      ],
+      "execution_count": 141,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "4PsWgWH3KTeG"
+      },
+      "source": [
+        "<hr>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "QFb_X9DdKSv8",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 419
+        },
+        "outputId": "6e8e7694-7328-4369-de85-c0b449186662"
+      },
+      "source": [
+        "df = pd.read_excel('https://raw.githubusercontent.com/wtitze/3E/main/Coaches.xlsx')\n",
+        "df"
+      ],
+      "execution_count": 142,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Name</th>\n",
+              "      <th>NOC</th>\n",
+              "      <th>Discipline</th>\n",
+              "      <th>Event</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>ABDELMAGID Wael</td>\n",
+              "      <td>Egypt</td>\n",
+              "      <td>Football</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>ABE Junya</td>\n",
+              "      <td>Japan</td>\n",
+              "      <td>Volleyball</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>ABE Katsuhiko</td>\n",
+              "      <td>Japan</td>\n",
+              "      <td>Basketball</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>ADAMA Cherif</td>\n",
+              "      <td>Côte d'Ivoire</td>\n",
+              "      <td>Football</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>AGEBA Yuya</td>\n",
+              "      <td>Japan</td>\n",
+              "      <td>Volleyball</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>389</th>\n",
+              "      <td>ZAMORA PEDREIRA Javier</td>\n",
+              "      <td>Spain</td>\n",
+              "      <td>Basketball</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>390</th>\n",
+              "      <td>ZAMPIERI Francesca</td>\n",
+              "      <td>Liechtenstein</td>\n",
+              "      <td>Artistic Swimming</td>\n",
+              "      <td>Duet</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>391</th>\n",
+              "      <td>ZHANG Xiaohuan</td>\n",
+              "      <td>People's Republic of China</td>\n",
+              "      <td>Artistic Swimming</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>392</th>\n",
+              "      <td>ZIJP Simon</td>\n",
+              "      <td>Netherlands</td>\n",
+              "      <td>Hockey</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>393</th>\n",
+              "      <td>ZONDI Nkuliso</td>\n",
+              "      <td>South Africa</td>\n",
+              "      <td>Hockey</td>\n",
+              "      <td>Women</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>394 rows × 4 columns</p>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "                       Name  ...  Event\n",
+              "0           ABDELMAGID Wael  ...    NaN\n",
+              "1                 ABE Junya  ...    NaN\n",
+              "2             ABE Katsuhiko  ...    NaN\n",
+              "3              ADAMA Cherif  ...    NaN\n",
+              "4                AGEBA Yuya  ...    NaN\n",
+              "..                      ...  ...    ...\n",
+              "389  ZAMORA PEDREIRA Javier  ...    NaN\n",
+              "390      ZAMPIERI Francesca  ...   Duet\n",
+              "391          ZHANG Xiaohuan  ...    NaN\n",
+              "392              ZIJP Simon  ...    NaN\n",
+              "393           ZONDI Nkuliso  ...  Women\n",
+              "\n",
+              "[394 rows x 4 columns]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 142
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "XqLRrcZ3KS0n"
+      },
+      "source": [
+        "1\\. Visualizzare il numero di allenatori per ogni nazione. Ordinare in ordine decrescente a partire dalla nazione che ha più allenatori. \n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "J7DKbRXfKT0W",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "230dc7de-f527-430a-e72e-fce97381687a"
+      },
+      "source": [
+        "data = df['NOC'].value_counts().sort_values(ascending=False)\n",
+        "data"
+      ],
+      "execution_count": 143,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "Japan                       35\n",
+              "Spain                       28\n",
+              "United States of America    28\n",
+              "Australia                   22\n",
+              "Canada                      16\n",
+              "                            ..\n",
+              "Portugal                     1\n",
+              "Liechtenstein                1\n",
+              "Honduras                     1\n",
+              "Slovakia                     1\n",
+              "Tunisia                      1\n",
+              "Name: NOC, Length: 61, dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 143
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "zyEpFSHJMyKp"
+      },
+      "source": [
+        "2\\. Visualizzare il numero di allenatori per ogni  disciplina. Ordinare in ordine decrescente in base alla disciplina in cui ci sono più allenatori\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "NCajpArPMyGQ",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "e3b050c3-3388-4983-93e6-263f39b458f8"
+      },
+      "source": [
+        "data = df['Discipline'].value_counts().sort_values(ascending=False)\n",
+        "data"
+      ],
+      "execution_count": 144,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "Basketball           74\n",
+              "Artistic Swimming    69\n",
+              "Football             59\n",
+              "Volleyball           45\n",
+              "Hockey               45\n",
+              "Handball             29\n",
+              "Baseball/Softball    26\n",
+              "Rugby Sevens         25\n",
+              "Water Polo           22\n",
+              "Name: Discipline, dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 144
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "78BY7DmENNGh"
+      },
+      "source": [
+        "3\\. Visualizzare il nome della nazione che ha portato più allenatori"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "_vEglUlyNNAX",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        },
+        "outputId": "ee8618f4-107b-4da8-bbee-cabb72918c2c"
+      },
+      "source": [
+        "df['NOC'].value_counts().sort_values(ascending=False).index[0]"
+      ],
+      "execution_count": 145,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "string"
+            },
+            "text/plain": [
+              "'Japan'"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 145
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "tLwthtkeNaB9"
+      },
+      "source": [
+        "4\\. Visualizzare il nome delle nazioni che hanno portato più allenatori rispetto alla media "
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "pDzq1QDZNZ74",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        },
+        "outputId": "a1f4f376-ac57-4bf3-b90a-40c4aa8e2176"
+      },
+      "source": [
+        "pd.Series(df['NOC'].value_counts()/df['NOC'].value_counts().sum() * 100).sort_values().index[0]"
+      ],
+      "execution_count": 146,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "string"
+            },
+            "text/plain": [
+              "'Tunisia'"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 146
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "3XBAh5PUNfIt"
+      },
+      "source": [
+        "5\\. Eliminare la colonna “Name”"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "pvb1IL53NfD6"
+      },
+      "source": [
+        "df = df.drop(columns='Name')"
+      ],
+      "execution_count": 147,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "GkYQcol2NqNo"
+      },
+      "source": [
+        "6\\. Rinominare la colonna NOC in “Name”"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "LU8wmpmrNqJf",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 419
+        },
+        "outputId": "c22d8e89-77c6-4665-97b3-f19917558075"
+      },
+      "source": [
+        "df.rename(columns={\"NOC\": \"Name\"})"
+      ],
+      "execution_count": 148,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Name</th>\n",
+              "      <th>Discipline</th>\n",
+              "      <th>Event</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>Egypt</td>\n",
+              "      <td>Football</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>Japan</td>\n",
+              "      <td>Volleyball</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>Japan</td>\n",
+              "      <td>Basketball</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>Côte d'Ivoire</td>\n",
+              "      <td>Football</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>Japan</td>\n",
+              "      <td>Volleyball</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>389</th>\n",
+              "      <td>Spain</td>\n",
+              "      <td>Basketball</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>390</th>\n",
+              "      <td>Liechtenstein</td>\n",
+              "      <td>Artistic Swimming</td>\n",
+              "      <td>Duet</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>391</th>\n",
+              "      <td>People's Republic of China</td>\n",
+              "      <td>Artistic Swimming</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>392</th>\n",
+              "      <td>Netherlands</td>\n",
+              "      <td>Hockey</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>393</th>\n",
+              "      <td>South Africa</td>\n",
+              "      <td>Hockey</td>\n",
+              "      <td>Women</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>394 rows × 3 columns</p>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "                           Name         Discipline  Event\n",
+              "0                         Egypt           Football    NaN\n",
+              "1                         Japan         Volleyball    NaN\n",
+              "2                         Japan         Basketball    NaN\n",
+              "3                 Côte d'Ivoire           Football    NaN\n",
+              "4                         Japan         Volleyball    NaN\n",
+              "..                          ...                ...    ...\n",
+              "389                       Spain         Basketball    NaN\n",
+              "390               Liechtenstein  Artistic Swimming   Duet\n",
+              "391  People's Republic of China  Artistic Swimming    NaN\n",
+              "392                 Netherlands             Hockey    NaN\n",
+              "393                South Africa             Hockey  Women\n",
+              "\n",
+              "[394 rows x 3 columns]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 148
+        }
+      ]
+    }
+  ]
+}
